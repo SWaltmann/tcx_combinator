@@ -1,6 +1,9 @@
 import os
 
-directory_path = input("Full path of directory containing tcx files: ")
+if os.getenv('TCX_FILE_PATH'):
+    directory_path = os.getenv('TCX_FILE_PATH')
+else:
+    directory_path = input("Full path of directory containing tcx files: ")
 
 num_tcx_files = 0
 
