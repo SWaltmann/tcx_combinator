@@ -8,14 +8,18 @@ else:
 
 OUTPUT_PATH = os.path.join(directory_path, "OUTPUT.tcx")
 
-num_tcx_files = 0
+num_tcx_files = 1  # Already count the first file
 
 this_is_the_first_file = True
 
 footer = []
 
+output_file_number = 1  # If we need multiple files, then this will be the number appended to the output file name
+
 # Loop through all files 
 for file in os.listdir(directory_path):
+    file = os.path.join(directory_path, file)
+
     # Consider only .tcx files
     if file.endswith(".tcx"):
 
@@ -38,7 +42,7 @@ for file in os.listdir(directory_path):
 
         # Only the <activity> part of the other files are appended in the output
         with open(OUTPUT_PATH, 'a') as output_file, open(file, 'r') as input_file:
-            print("Next file...")
+            
             reached_begin_activity = False
             for line in input_file:
                 if "<Activities>" in line:
@@ -53,6 +57,7 @@ for file in os.listdir(directory_path):
 
 
         num_tcx_files += 1
+        print(print(num_tcx_files))
 
 # Once all <activities> have been copied, append the 'footer' (ie everything that comes after the <activities>)
 with open(OUTPUT_PATH, 'a') as output_file:
